@@ -1,0 +1,19 @@
+name: On Pull Request
+
+on:
+  pull_request:
+    branches: [main]
+
+env:
+  IMAGE_NAME: infra-rustbuilder-musl
+
+jobs:
+  docker-build-test:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v2
+      - name: Test Docker Build
+        run: |
+
+          # Build Image
+          docker build --pull -f Dockerfile -t $IMAGE_NAME .
