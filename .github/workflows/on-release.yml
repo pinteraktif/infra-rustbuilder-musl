@@ -4,9 +4,6 @@ on:
   release:
     types: [published]
 
-env:
-  IMAGE_NAME: infra-rustbuilder-musl
-
 jobs:
   docker-publish-stable:
     runs-on: self-hosted
@@ -16,20 +13,20 @@ jobs:
         run: |
 
           # Build Image
-          docker build --pull -f Dockerfile -t $IMAGE_NAME .
+          docker build --pull -f Dockerfile -t docker-image .
 
           # Login Github Docker Registry
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
           # Github Package Registry Tag & Push
-          IMAGE_ID=ghcr.io/${{ github.repository }}/$IMAGE_NAME 
+          IMAGE_ID=ghcr.io/${{ github.repository }}
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
           VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
           [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
           echo IMAGE_ID=$IMAGE_ID
           echo VERSION=$VERSION
-          docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
+          docker tag docker-image $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
           VERSION=latest
-          docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
+          docker tag docker-image $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
