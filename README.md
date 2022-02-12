@@ -1,11 +1,11 @@
 # infra-rustbuilder-musl
 
-This is a docker base image for multistage native binary build with Fedora 34 as its base image.
+This is a docker base image for multistage native binary build with Fedora 35 as its base image.
 
 ## Provides
 
-- Python 3.9 Development Packages
+- Python 3.10.2 Development Packages
 - GCC 11.2.1
-- Clang/LLVM 12.0.1
-- Rust 1.55.0 (Stable)
+- Clang/LLVM 13.0.0
+- Rust 1.58.1 (Stable)
 - musl libc

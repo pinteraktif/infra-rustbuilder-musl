@@ -1,4 +1,4 @@
-FROM fedora:34
+FROM fedora:35
 
 LABEL maintainer "Wu Assassin <jambang.pisang@gmail.com>"
 LABEL org.opencontainers.image.source https://github.com/pinteraktif/infra-rustbuilder-musl
@@ -58,6 +58,6 @@ RUN dnf clean all
 
 ENV PATH="/root/.cargo/bin:${PATH}"
 
-RUN rustup default 1.55.0 && \
+RUN rustup default 1.58.1 && \
     rustup target add x86_64-unknown-linux-musl && \
     rustup update
