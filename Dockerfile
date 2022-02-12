@@ -5,6 +5,8 @@ LABEL org.opencontainers.image.source https://github.com/pinteraktif/infra-rustb
 
 USER root
 
+RUN dnf check-upgrade || dnf upgrade -y
+
 RUN dnf install -y \
     autoconf \
     automake \
