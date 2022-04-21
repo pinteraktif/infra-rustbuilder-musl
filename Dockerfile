@@ -60,6 +60,6 @@ RUN dnf clean all
 
 ENV PATH="/root/.cargo/bin:${PATH}"
 
-RUN rustup default 1.58.1 && \
+RUN rustup default 1.60.0 && \
     rustup target add x86_64-unknown-linux-musl && \
     rustup update
